@@ -1,24 +1,24 @@
-import React, {Component} from "react";
+import React from "react";
 import './todo-list-item.css';
 
-export default class TodoListItem extends Component {
+const TodoListItem = (props) => {
 
-  render() {
-    const { label, onDeleted,
-            onToggleImportant, onToggleDone,
-            important, done} = this.props;
+  const {
+    label, onDeleted,
+    onToggleImportant, onToggleDone,
+    important, done
+  } = props;
 
-    let classNames = 'd-flex todo-list-item';
-    if (done) {
-      classNames += ' done';
-    }
-    if (important) {
-      classNames += ' important';
-    }
+  let classNames = 'd-flex todo-list-item';
+  if (done) {
+    classNames += ' done';
+  }
+  if (important) {
+    classNames += ' important';
+  }
 
-
-    return (
-      <span className={classNames}>
+  return (
+    <span className={classNames}>
         <span className="todo-list-item-label"
               onClick={onToggleDone}>
               {label}
@@ -36,6 +36,7 @@ export default class TodoListItem extends Component {
           <i className="bi bi-trash"></i>
         </button>
     </span>
-    );
-  }
-}
+  );
+};
+
+export default TodoListItem;
