@@ -1,14 +1,24 @@
 import React from "react";
 
-const ItemStatusFilter = ({filter, onFilterChange}) => {
+type ItemStatusFilterProps = {
+  filter: string,
+  onFilterChange: (filter: string) => void
+}
 
-  const buttons = [
+type Button = {
+  name: string,
+  label: string
+}
+
+const ItemStatusFilter: React.FC<ItemStatusFilterProps> = ({filter, onFilterChange}) => {
+
+  const buttons: Button[] = [
     {name: 'all', label: 'All'},
     {name: 'active', label: 'Active'},
     {name: 'done', label: 'Done'}
   ];
 
-  const button = buttons.map(({name, label}) => {
+  const buttonsArray:React.JSX.Element[] = buttons.map(({name, label}: Button) => {
     const isActive = filter === name;
     const clazz = isActive ? 'btn-primary' : 'btn-outline-primary';
 
@@ -24,7 +34,7 @@ const ItemStatusFilter = ({filter, onFilterChange}) => {
 
   return (
     <div className="btn-group">
-      {button}
+      {buttonsArray}
     </div>
   );
 };

@@ -1,15 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useState} from "react";
 
-import AppHeader from "../app-header";
-import TodoList from "../todo-list";
-import SearchPanel from "../search-panel";
-import ItemAddForm from "../item-add-form";
-import ItemStatusFilter from "../item-status-filter";
+import AppHeader from "../app-header/app-header";
+import TodoList from "../todo-list/todo-list";
+import SearchPanel from "../search-panel/search-panel";
+import ItemAddForm from "../item-add-form/item-add-form";
+import ItemStatusFilter from "../item-status-filter/item-status-filter";
 import './app.css';
 
-const App = () => {
+type Item = {
+  label: string,
+  important: boolean,
+  done: boolean,
+  id: number
+}
 
-  const createTodoItem = (label, id) => {
+const App:React.FC = () => {
+
+  const createTodoItem = (label: string, id: number): Item => {
     return {
       label,
       important: false,
@@ -18,7 +26,7 @@ const App = () => {
     };
   };
 
-  const [todoData, setTodoData] = useState([
+  const [todoData, setTodoData] = useState<Item[]>([
     createTodoItem('Buy products', Date.now() + 1),
     createTodoItem('English lesson', Date.now() + 2),
     createTodoItem('Call Mom', Date.now() + 3)
@@ -28,7 +36,7 @@ const App = () => {
 
   const [filter, setFilter] = useState('all');
 
-  const deleteItem = (id) => {
+  const deleteItem = (id: number): void => {
     const idx = todoData.findIndex((el) => el.id === id);
     setTodoData(
       [
@@ -37,16 +45,16 @@ const App = () => {
       ]);
   };
 
-  const addItem = (text) => {
+  const addItem = (text: string): void => {
     const newElem = createTodoItem(text, Date.now());
     setTodoData([
       ...todoData, newElem
     ]);
   };
 
-  const toggleProperty = (arr, id, propName) => {
-    const idx = arr.findIndex((el) => el.id === id);
-    const oldItem = arr[idx];
+  const toggleProperty = (arr: Item[], id: number, propName: string): Item[] => {
+    const idx = arr.findIndex((el: any) => el.id === id);
+    const oldItem: any = arr[idx];
     const newItem = {...oldItem, [propName]: !oldItem[propName]};
     return [
       ...arr.slice(0, idx),
@@ -55,35 +63,35 @@ const App = () => {
     ];
   };
 
-  const onToggleImportant = (id) => {
+  const onToggleImportant = (id: number): void => {
     setTodoData(toggleProperty(todoData, id, 'important'));
   };
 
-  const onToggleDone = (id) => {
+  const onToggleDone = (id: number): void => {
     setTodoData(toggleProperty(todoData, id, 'done'));
   };
 
-  const onSearchChange = (term) => {
+  const onSearchChange = (term: string): void => {
     setTerm(term);
   };
 
-  const onFilterChange = (filter) => {
+  const onFilterChange = (filter: string): void => {
     setFilter(filter);
   };
 
-  const search = (items, term) => {
+  const search = (items: Item[], term: string): Item[] => {
     if (term.length === 0) {
       return items;
     }
 
-    return items.filter((item) => {
+    return items.filter((item: Item): boolean => {
       return item.label
         .toLowerCase()
         .indexOf(term.toLowerCase()) > -1;
     });
   };
 
-  const filterItems = (items, filter) => {
+  const filterItems = (items: Item[], filter: string): Item[] => {
     switch (filter) {
       case 'all':
         return items;
@@ -96,13 +104,13 @@ const App = () => {
     }
   };
 
-  const visibleItems = filterItems(
+  const visibleItems: Item[] = filterItems(
     search(todoData, term), filter);
 
-  const doneCount = todoData
+  const doneCount: number = todoData
     .filter((el) => el.done).length;
 
-  const todoCount = todoData.length - doneCount;
+  const todoCount: number = todoData.length - doneCount;
 
   return (
     <div className="todo">
@@ -129,3 +137,4 @@ const App = () => {
 };
 
 export default App;
+export type { Item };

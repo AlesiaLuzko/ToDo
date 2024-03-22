@@ -1,15 +1,19 @@
 import React, {useState} from "react";
 import './item-add-form.css';
 
-const ItemAddForm = ({onItemAdded}) => {
+type ItemAddFormProps = {
+  onItemAdded: (label: string) => void
+};
 
-  const [label, setLabel] = useState('');
+const ItemAddForm = ({onItemAdded}: ItemAddFormProps) => {
 
-  const onLabelChange = (event) => {
+  const [label, setLabel] = useState<any>('');
+
+  const onLabelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLabel(event.target.value);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onItemAdded(label);
     setLabel('');

@@ -1,9 +1,17 @@
 import React from "react";
 import './todo-list.css';
 
-import TodoListItem from "../todo-list-item";
+import TodoListItem from "../todo-list-item/todo-list-item";
+import type {Item} from "../app/app";
 
-const TodoList = ({todos, onDeleted, onToggleImportant, onToggleDone}) => {
+type TodoListProps = {
+    todos: Item[],
+    onDeleted: (id: number) => void,
+    onToggleImportant: (id: number) => void,
+    onToggleDone: (id: number) => void
+};
+
+const TodoList: React.FC<TodoListProps> = ({todos, onDeleted, onToggleImportant, onToggleDone}) => {
 
   const elements = todos.map((item) => {
 

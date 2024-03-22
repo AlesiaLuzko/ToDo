@@ -1,11 +1,15 @@
 import React, {useState} from "react";
 import './search-panel.css';
 
-const SearchPanel = ({onSearchChange: onSearch}) => {
+type SearchPanelProps = {
+  onSearchChange: (term: string) => void
+};
+
+const SearchPanel: React.FC<SearchPanelProps> = ({onSearchChange: onSearch}) => {
 
   const [term, setTerm] = useState('');
 
-  const onSearchChange = (event) => {
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value;
     setTerm(term);
     onSearch(term);
