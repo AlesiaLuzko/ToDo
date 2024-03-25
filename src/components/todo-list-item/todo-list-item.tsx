@@ -1,13 +1,23 @@
-import React from "react";
+import React from 'react';
 import './todo-list-item.css';
 
-const TodoListItem = (props) => {
+type TodoListItemProps = {
+  label: string,
+  onDeleted: () => void,
+  onToggleImportant: () => void,
+  onToggleDone: () => void,
+  important: boolean,
+  done: boolean,
+}
 
-  const {
-    label, onDeleted,
-    onToggleImportant, onToggleDone,
-    important, done
-  } = props;
+const TodoListItem: React.FC<TodoListItemProps> = ({
+                                                     label,
+                                                     onDeleted,
+                                                     onToggleImportant,
+                                                     onToggleDone,
+                                                     important,
+                                                     done,
+                                                   }) => {
 
   let classNames = 'd-flex todo-list-item';
   if (done) {
