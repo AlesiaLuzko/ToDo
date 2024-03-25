@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react';
+
+import TodoListItem from '../todo-list-item/todo-list-item';
+import type { Item } from '../app/app';
 import './todo-list.css';
 
-import TodoListItem from "../todo-list-item/todo-list-item";
-import type {Item} from "../app/app";
-
 type TodoListProps = {
-    todos: Item[],
-    onDeleted: (id: number) => void,
-    onToggleImportant: (id: number) => void,
-    onToggleDone: (id: number) => void
+  todos: Item[],
+  onDeleted: (id: number) => void,
+  onToggleImportant: (id: number) => void,
+  onToggleDone: (id: number) => void,
 };
 
-const TodoList: React.FC<TodoListProps> = ({todos, onDeleted, onToggleImportant, onToggleDone}) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, onDeleted, onToggleImportant, onToggleDone }) => {
 
   const elements = todos.map((item) => {
 
-    const {id, ...itemProps} = item;
+    const { id, ...itemProps } = item;
 
     return (
       <li key={id} className="list-group-item">
@@ -24,7 +24,7 @@ const TodoList: React.FC<TodoListProps> = ({todos, onDeleted, onToggleImportant,
           onDeleted={() => onDeleted(id)}
           onToggleImportant={() => onToggleImportant(id)}
           onToggleDone={() => onToggleDone(id)}
-          />
+        />
       </li>
     );
   });

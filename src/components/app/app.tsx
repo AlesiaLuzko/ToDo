@@ -1,35 +1,33 @@
-import React from 'react';
-import {useState} from "react";
+import React, { useState } from 'react';
 
-import AppHeader from "../app-header/app-header";
-import TodoList from "../todo-list/todo-list";
-import SearchPanel from "../search-panel/search-panel";
-import ItemAddForm from "../item-add-form/item-add-form";
-import ItemStatusFilter from "../item-status-filter/item-status-filter";
+import AppHeader from '../app-header/app-header';
+import TodoList from '../todo-list/todo-list';
+import SearchPanel from '../search-panel/search-panel';
+import ItemAddForm from '../item-add-form/item-add-form';
+import ItemStatusFilter from '../item-status-filter/item-status-filter';
 import './app.css';
 
 type Item = {
   label: string,
   important: boolean,
   done: boolean,
-  id: number
-}
+  id: number,
+};
 
-const App:React.FC = () => {
-
+const App: React.FC = () => {
   const createTodoItem = (label: string, id: number): Item => {
     return {
       label,
       important: false,
       done: false,
-      id
+      id,
     };
   };
 
   const [todoData, setTodoData] = useState<Item[]>([
     createTodoItem('Buy products', Date.now() + 1),
     createTodoItem('English lesson', Date.now() + 2),
-    createTodoItem('Call Mom', Date.now() + 3)
+    createTodoItem('Call Mom', Date.now() + 3),
   ]);
 
   const [term, setTerm] = useState('');
@@ -41,25 +39,23 @@ const App:React.FC = () => {
     setTodoData(
       [
         ...todoData.slice(0, idx),
-        ...todoData.slice(idx + 1)
+        ...todoData.slice(idx + 1),
       ]);
   };
 
   const addItem = (text: string): void => {
     const newElem = createTodoItem(text, Date.now());
-    setTodoData([
-      ...todoData, newElem
-    ]);
+    setTodoData([...todoData, newElem]);
   };
 
   const toggleProperty = (arr: Item[], id: number, propName: string): Item[] => {
     const idx = arr.findIndex((el: any) => el.id === id);
     const oldItem: any = arr[idx];
-    const newItem = {...oldItem, [propName]: !oldItem[propName]};
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
     return [
       ...arr.slice(0, idx),
       newItem,
-      ...arr.slice(idx + 1)
+      ...arr.slice(idx + 1),
     ];
   };
 
@@ -104,21 +100,19 @@ const App:React.FC = () => {
     }
   };
 
-  const visibleItems: Item[] = filterItems(
-    search(todoData, term), filter);
+  const visibleItems: Item[] = filterItems(search(todoData, term), filter);
 
-  const doneCount: number = todoData
-    .filter((el) => el.done).length;
+  const doneCount: number = todoData.filter((el) => el.done).length;
 
   const todoCount: number = todoData.length - doneCount;
 
   return (
     <div className="todo">
-      <AppHeader toDo={todoCount} done={doneCount}/>
+      <AppHeader toDo={todoCount} done={doneCount} />
 
       <div className="d-flex search-panel">
         <SearchPanel
-          onSearchChange={onSearchChange}/>
+          onSearchChange={onSearchChange} />
         <ItemStatusFilter
           filter={filter}
           onFilterChange={onFilterChange}
@@ -131,7 +125,7 @@ const App:React.FC = () => {
         onToggleImportant={onToggleImportant}
         onToggleDone={onToggleDone}
       />
-      <ItemAddForm onItemAdded={addItem}/>
+      <ItemAddForm onItemAdded={addItem} />
     </div>
   );
 };

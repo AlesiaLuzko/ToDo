@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from 'react';
 import './search-panel.css';
 
 type SearchPanelProps = {
-  onSearchChange: (term: string) => void
+  onSearchChange: (term: string) => void,
 };
 
-const SearchPanel: React.FC<SearchPanelProps> = ({onSearchChange: onSearch}) => {
+const SearchPanel: React.FC<SearchPanelProps> = ({ onSearchChange: onSearch }) => {
 
   const [term, setTerm] = useState('');
 
@@ -16,10 +16,10 @@ const SearchPanel: React.FC<SearchPanelProps> = ({onSearchChange: onSearch}) => 
   };
 
   return (<input
-      placeholder="type here to search"
-      className="form-control"
-      value={term}
-      onChange={onSearchChange}/>);
+    placeholder="type here to search"
+    className="form-control"
+    value={term}
+    onChange={onSearchChange} />);
 };
 
 export default SearchPanel;

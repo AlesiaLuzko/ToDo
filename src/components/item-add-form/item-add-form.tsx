@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from 'react';
 import './item-add-form.css';
 
 type ItemAddFormProps = {
-  onItemAdded: (label: string) => void
+  onItemAdded: (label: string) => void,
 };
 
-const ItemAddForm = ({onItemAdded}: ItemAddFormProps) => {
+const ItemAddForm = ({ onItemAdded }: ItemAddFormProps) => {
 
   const [label, setLabel] = useState<any>('');
 
@@ -25,7 +25,7 @@ const ItemAddForm = ({onItemAdded}: ItemAddFormProps) => {
            className="form-control"
            onChange={onLabelChange}
            placeholder="What needs to be done"
-           value={label}/>
+           value={label} />
     <button
       className="btn btn-outline-secondary">
       Add Item
